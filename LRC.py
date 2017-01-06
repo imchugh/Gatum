@@ -63,7 +63,7 @@ data_dict['date_time'] = np.array([dt.datetime(this_date.year, this_date.month,
 
 data_dict['PAR'] = data_dict['Fsd'] * 0.46 * 4.6
 
-window_dict = dtf.get_moving_window(data_dict, 'date_time', 10, 5)
+window_dict = dtf.get_moving_window(data_dict, 'date_time', 3, 1)
 
 sorted_datetime = window_dict.keys()
 sorted_datetime.sort()

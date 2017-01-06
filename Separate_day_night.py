@@ -25,6 +25,7 @@ def ramp_func_lin_T_Fsd(df, VWC_lo, VWC_hi, pr_param, a, b):
     VWC = df.Sws_mean
     T = df.night_T_mean
     pr = df.day_Fc_mean
+#    Fsd = df.Fsd_sum
     
     VWC_ind = np.where(VWC < VWC_lo, 0, 
                        np.where(VWC > VWC_hi, 1, 
@@ -124,17 +125,17 @@ night_ranges = zip(set_datetimes, rise_datetimes[1:] + [end_rise])
 dates = [this_date.date() for this_date in rise_datetimes]
 
 # Get modis LAI data
-#modis_start = dates[0]
-#modis_end = dates[-1]
-#modis_dict = mf.get_MODIS_subset(lat, lon, modis_prod, modis_data_band,
-#                                modis_QC_band, 
-#                                requestStart = modis_start,
-#                                requestEnd = modis_end)
-#modis_df = pd.DataFrame(modis_dict)
-#modis_df.index = modis_df.date
-#modis_df['QC_int'] = np.array([int(i, 2) for i in modis_dict['QC']])
-#modis_df['data'][modis_df['QC_int'] <> 0] = np.nan
-#modis_df = modis_df.reindex(dates)
+modis_start = dates[0]
+modis_end = dates[-1]
+modis_dict = mf.get_MODIS_subset(lat, lon, modis_prod, modis_data_band,
+                                modis_QC_band, 
+                                requestStart = modis_start,
+                                requestEnd = modis_end)
+modis_df = pd.DataFrame(modis_dict)
+modis_df.index = modis_df.date
+modis_df['QC_int'] = np.array([int(i, 2) for i in modis_dict['QC']])
+modis_df['data'][modis_df['QC_int'] <> 0] = np.nan
+modis_df = modis_df.reindex(dates)
 
 # Find the max number of values for each of day and night
 max_day_recs = np.array([(this_range[1] - this_range[0]).seconds / 1800 
