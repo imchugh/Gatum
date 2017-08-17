@@ -33,7 +33,7 @@ def LRF(data_d, alpha, beta, gamma):
 ustar_threshold = 0.1
 noct_threshold = 10
 
-path1 = '/home/imchugh/Documents/Gatum/EC_data/2015/'
+path1 = '/home/ian/OzFlux/Sites/GatumPasture/Data/Processed/2015/'
 name1 = 'GatumPasture_2015_L4.nc'
 f_name1 = os.path.join(path1, name1)
 df1 = io.OzFluxQCnc_to_data_structure(f_name1, 
@@ -41,7 +41,7 @@ df1 = io.OzFluxQCnc_to_data_structure(f_name1,
                                                 'ustar'], 
                                       output_structure='pandas')
 
-path2 = '/home/imchugh/Documents/Gatum/EC_data/2016/'
+path2 = '/home/ian/OzFlux/Sites/GatumPasture/Data/Processed/2016/'
 name2 = 'GatumPasture_2016_L4.nc'
 f_name2 = os.path.join(path2, name2)
 df2 = io.OzFluxQCnc_to_data_structure(f_name2, 
