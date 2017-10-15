@@ -18,7 +18,7 @@ def rebuild_name(fname):
 
 path = '/mnt/fluxdata/Gatum_data/2_Converted/C_2017-08-03_Pasture'
 
-files = filter(lambda x: os.path.isfile, os.listdir(path))
+files = filter(lambda x: os.path.isfile(x), os.listdir(path))
 ok_list = filter(check_ok, files)
 old_names = map(lambda x: os.path.join(path, x), ok_list)
 new_names = map(lambda x: os.path.join(path, rebuild_name(x)), ok_list)

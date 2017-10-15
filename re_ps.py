@@ -42,7 +42,7 @@ def get_data(configs_dict, use_storage = True):
 ###############################################################################
 # Constants
 
-config_file = '/home/imchugh/Code/Python/Config_files/Gatum_master_configs.txt'
+config_file = '/home/ian/Code/Python/Config_files/Gatum_master_configs.txt'
 
 ##############################################################################
 # Do respiration
