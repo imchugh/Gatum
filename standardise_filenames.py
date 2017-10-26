@@ -16,9 +16,9 @@ def rebuild_name(fname):
     fname_list = fname.split('_')
     return '_'.join(fname_list[:3] + fname_list[4:])
 
-path = '/mnt/fluxdata/Gatum_data/2_Converted/C_2017-08-03_Pasture'
+path = '/mnt/fluxdata/Gatum_data/2_Converted/C_2017-10-17_Pasture'
 
-files = filter(lambda x: os.path.isfile(x), os.listdir(path))
+files = filter(lambda x: os.path.isfile(os.path.join(path, x)), os.listdir(path))
 ok_list = filter(check_ok, files)
 old_names = map(lambda x: os.path.join(path, x), ok_list)
 new_names = map(lambda x: os.path.join(path, rebuild_name(x)), ok_list)
