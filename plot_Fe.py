@@ -29,7 +29,6 @@ font.set_family('sans serif')
 font.set_style('italic')
 fig, ax = plt.subplots(1, 1, figsize = (12, 8))
 fig.patch.set_facecolor('white')
-csfont = {'fontname':'cursive'}
 ax.set_xlim([-100, 400])
 ax.set_ylim([-100, 400])
 ax.set_xlabel('F$_e\__{CR3}$ (W m$^{-2}$)', fontsize = 18, fontproperties = font)
