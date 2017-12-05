@@ -12,8 +12,9 @@ import pandas as pd
 
 import DataIO as io
 
-path = '/home/ian/OzFlux/Sites/GatumPasture/Data/Processed/All/GatumPasture_L3.nc'
-num_cats = 30
+path='/media/ian/STORE N GO/RockyMouth_2015_16_L3.nc'
+#path = '/home/ian/OzFlux/Sites/GatumPasture/Data/Processed/All/GatumPasture_L3.nc'
+num_cats = 50
 
 df = io.OzFluxQCnc_to_data_structure(path, output_structure='pandas')
 
@@ -35,5 +36,5 @@ ax.yaxis.set_ticks_position('left')
 ax.xaxis.set_ticks_position('bottom')    
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
-ax.axvline(0.1275, color = 'black')
+#ax.axvline(0.1275, color = 'black')
 ax.plot(means_df.ustar, means_df.Fc, marker = 'o', mfc = '0.5', color = '0.5')
