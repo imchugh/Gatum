@@ -10,8 +10,8 @@ import pandas as pd
 import datetime as dt
 import numpy as np
 
-path = ('/mnt/fluxdata/Gatum_data/EddyPro/Output/20170803/'
-        'eddypro_01_full_output_2017-10-12T124248_adv.csv')
+path = ('/mnt/fluxdata/Gatum_data/EddyPro/Output/20171017/'
+        'eddypro_01_full_output_2017-11-23T134702_adv.csv')
 
 df = pd.read_csv(path, skiprows = [0, 2])
 
