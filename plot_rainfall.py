@@ -6,6 +6,7 @@ Created on Thu Feb 15 11:54:26 2018
 @author: ian
 """
 
+import calendar
 import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
@@ -55,11 +56,33 @@ temp_df = combined_df.loc['2016-03-01':'2017-02-28'].reset_index()
 temp_df.index = np.linspace(1, 365, 365)
 compare_df['2016'] = temp_df['Gatum_rainfall_mm']
 
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize = (12, 4), sharex = True)
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize = (12, 4))
 fig.patch.set_facecolor('white')
-
-ax1_b = ax1.twinx()
-ax1_b.plot(compare_df.index, compare_df['Gatum_rainfall_mm'].cumsum())
-ax1_b.fill_between(compare_df.index, np.tile(0, len(compare_df)), 
-                   compare_df['Gatum_rainfall_mm'].cumsum(), alpha = 0.5)
-ax1.bar(compare_df.index, compare_df['2015'], color = 'black')
+int_idx = np.concatenate([np.linspace(3,12,10), np.linspace(1,2,2)]).astype(int)
+month_locs = np.cumsum([1] + map(lambda x: calendar.monthrange(2015, x)[1], 
+                                 int_idx[:-1]))
+month_labels = map(lambda x: calendar.month_name[x][0], int_idx)
+xlim = [1, 365]
+ylim = [0, round(compare_df[['2015', '2016']].max().max() * 1.05)]
+yblim = [0, 1000]
+d = {'2015': ax1, '2016': ax2}
+for i, year in enumerate(d.keys()):
+    ax = d[year]
+    if i == 0:
+        ax.set_ylabel('Daily precipitation (mm)')
+    ax.set_xlim(xlim)
+    ax.set_ylim(ylim)
+    ax.set_xticks(month_locs)
+    ax.set_xticklabels(month_labels)
+    ax_b = ax.twinx()
+    if i == 1:
+        ax_b.set_ylabel('Cumulative precipitation (mm)')
+    ax_b.set_ylim(yblim)
+    ax_b.fill_between(compare_df.index, np.tile(0, len(compare_df)), 
+                      compare_df['Gatum_rainfall_mm'].cumsum(), 
+                      alpha = 0.3)
+    ax.bar(compare_df.index, compare_df[year], color = 'black')
+    ax_b.plot(compare_df.index, compare_df[year].cumsum(), color = 'black')
+    ax.text(30, 50, year, verticalalignment = 'center')
+    for loc in month_locs[3], month_locs[6], month_locs[9]:
+        ax.axvline(loc, color = 'orange', lw = 0.9, ls = ':')
