@@ -8,6 +8,7 @@ Created on Thu Feb 15 11:54:26 2018
 
 import datetime as dt
 import pandas as pd
+from scipy.stats import linregress
 import pdb
 
 def get_date_from_multi_index(idx):
@@ -23,17 +24,20 @@ paths_dict = {'Cavendish':'/home/ian/Documents/Gatum project/Respiration paper/'
               'Gatum': '/home/ian/Documents/Gatum project/Respiration paper/'
                        'Data/BOM/IDCJAC0009_089043_1800_Data_Gatum.csv'}
 
-s_list = []
+df_list = []
 for name in paths_dict:
     df = pd.read_csv(paths_dict[name])
     df.index = get_date_from_dataframe_vars(df)
-    grp_s = (df.groupby([lambda x: x.year, lambda y: y.month]).sum()
-             ['Rainfall amount (millimetres)'])
-    grp_s.index = get_date_from_multi_index(grp_s.index)
-    grp_s.name = name
-    s_list.append(grp_s)
+    df = df[['Rainfall amount (millimetres)', 'Quality']]
+    df.columns = ['{}_rainfall_mm'.format(name), '{}_Quality'.format(name)]
+    df_list.append(df)
 
-begin_date = min([s.index[0] for s in s_list])
-end_date = max([s.index[-1] for s in s_list])
-new_index = pd.date_range(begin_date, end_date, freq = 'MS')
-combined_df = pd.concat([s.reindex(new_index) for s in s_list], axis=1)
+begin_date = min([df.index[0] for df in df_list])
+end_date = max([df.index[-1] for df in df_list])
+new_index = pd.date_range(begin_date, end_date, freq = 'D')
+combined_df = pd.concat([df.reindex(new_index) for df in df_list], axis = 1)
+
+
+month_df = combined_df.groupby([lambda x: x.year, lambda y: y. month]).sum()
+params = linregress(month_df['Cavendish_rainfall_mm'], 
+                    month_df['Gatum_rainfall_mm'])
