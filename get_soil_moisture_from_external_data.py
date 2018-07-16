@@ -10,7 +10,7 @@ import pandas as pd
 import xlrd
 
 
-path = '/mnt/fluxdata/Gatum_data/External_data/Gatum_north.xlsx'
+path = '/mnt/fluxdata/Gatum_pasture_data/External_data/Gatum_north.xlsx'
 alt_path = '/home/ian/OzFlux/Sites/GatumPasture/Data/Processed/2016/GatumPasture_2016_L1.xls'
 header_row = 0
 
